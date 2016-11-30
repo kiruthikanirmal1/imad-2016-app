@@ -1,24 +1,33 @@
-var express = require('express');
-var morgan = require('morgan');
-var path = require('path');
-
-var app = express();
-app.use(morgan('combined'));
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
-
-app.get('/ui/style.css', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'style.css'));
-});
-
-app.get('/ui/madi.png', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
-});
-
-
-var port = 8080; // Use 8080 for local development because you might already have apache running on 80
-app.listen(8080, function () {
-  console.log(`IMAD course app listening on port ${port}!`);
-});
+var sys = require("sys"),
+my_http = require("http"),
+path = require("path"),
+url = require("url"),
+filesys = require("fs");
+my_http.createServer(function(request,response){
+  var my_path = url.parse(request.url).pathname;
+  var full_path = path.join(process.cwd(),my_path);
+  path.exists(full_path,function(exists){
+    if(!exists){
+      response.writeHeader(404, {"Content-Type": "text/plain"});  
+      response.write("404 Not Found\n");  
+      response.end();
+    }
+    else{
+      filesys.readFile(full_path, "binary", function(err, file) {  
+           if(err) {  
+               response.writeHeader(500, {"Content-Type": "text/plain"});  
+               response.write(err + "\n");  
+               response.end();  
+          
+           }  
+         else{
+          response.writeHeader(200);  
+              response.write(file, "binary");  
+              response.end();
+        }
+            
+      });
+    }
+  });
+}).listen(8080);
+sys.puts("Server Running on 8080");     
