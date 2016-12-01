@@ -1,12 +1,10 @@
 console.log('check!');
-function changeBackground() {
-        if (sessionStorage.getItem('colour')) {
-            document.body.style.backgroundColor = sessionStorage.getItem('colour');
-        }else{
-            document.body.style.backgroundColor =  "#BB0A21";
-            sessionStorage.setItem('colour', "#BB0A21");
-        }
-    }
+function Change(node){
 
-  // then you'll need to call your function on page load
-  changeBackground();
+ var j=document.getElementsByClassName("on");
+  for(var i=0;i<j.length;i++){
+    j[i].className="";
+    }  
+  node.className="on";  
+
+    }
