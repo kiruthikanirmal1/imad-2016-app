@@ -1,8 +1,4 @@
- body {
-   background: #FF0000;
-   color: #333;
-   font-size: 1em;
-   line-height: 1.4;
-   margin: 0;
-   padding: 0;
+ function changeBg(element) {
+    alert(window.getComputedStyle(element).backgroundColor);
+    element.style.backgroundColor = "red";
 }
