@@ -5,5 +5,4 @@ http.createServer(function(request, response) {
   response.write("Hello My Webapp");
   response.end();
 }).listen(8080);
-var myElement = document.querySelector("#Hello My Webapp");
 myElement.style.backgroundColor = "#D93600";
